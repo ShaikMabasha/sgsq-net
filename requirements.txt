@@ -1,0 +1,14 @@
+torch>=2.1.0
+torchvision>=0.16.0        # includes DeepLabV3+, EfficientNet-B0, ViT-B/16 -- no extra baseline deps needed
+ultralytics>=8.1.0        # YOLOv8 for tooth/gingiva ROI detection
+albumentations>=1.4.0     # augmentation for segmentation/classification
+opencv-python>=4.9.0
+numpy>=1.26.0
+pandas>=2.2.0
+scikit-learn>=1.4.0       # GroupShuffleSplit / StratifiedGroupKFold for patient-level splitting
+matplotlib>=3.8.0
+tqdm>=4.66.0
+pyyaml>=6.0
+
+# Colab already has torch/torchvision/opencv preinstalled with CUDA --
+# pip install -r requirements.txt will simply confirm/upgrade versions.

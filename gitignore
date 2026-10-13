@@ -1,0 +1,42 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- Data (do not redistribute the dataset; see README) ----
+sgsq_data/
+data_raw/
+*.jpg
+*.jpeg
+*.png
+!docs/*.png
+
+# ---- Model weights, checkpoints and training outputs ----
+checkpoints/
+runs/
+wandb/
+lightning_logs/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.npy
+*.npz
+
+# ---- Archives and large files ----
+*.zip
+*.tar
+*.tar.gz
+
+# ---- Local / editor files ----
+.DS_Store
+.vscode/
+.idea/
+*.log
+.env

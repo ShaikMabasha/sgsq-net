@@ -1,0 +1,69 @@
+# ============================================================
+# SGSQ-Net global configuration
+# ============================================================
+
+paths:
+  root: "sgsq_data"
+  detection_dataset: "sgsq_data/detection"
+  segmentation_dataset: "sgsq_data/segmentation"
+  severity_dataset: "sgsq_data/severity"
+  checkpoints: "checkpoints"
+
+synthetic:
+  num_train_images: 640
+  num_val_images: 160
+  img_size: 512
+  images_per_patient: 4   # simulated patients, for testing patient-level splitting
+  seed: 42
+
+detection:
+  model: "yolov8n.pt"
+  classes: ["tooth", "gingiva"]
+  img_size: 640
+  epochs: 100
+  batch_size: 16
+  patience: 20   # YOLO's built-in early stopping
+
+segmentation:
+  num_classes: 1
+  img_size: 256
+  epochs: 100
+  batch_size: 16
+  lr: 0.0003
+  early_stopping_patience: 15
+
+severity:
+  # Updated after inspecting the full 1,096-image Mendeley dataset: the
+  # original "worst tooth" (max MGI) aggregation produced 0 healthy and only
+  # 17 mild images out of 1,096 (this population was recruited with existing
+  # gingivitis, so nearly every image has at least one badly inflamed tooth).
+  # Severity is therefore defined by MEAN MGI across all labeled teeth,
+  # quantile-binned into 5 roughly-equal groups (edges fit on train split
+  # only -- see data/convert_mendeley_dataset.py). These are data-driven
+  # relative-severity groups, NOT fixed clinical MGI thresholds -- state
+  # this explicitly in your paper. The original worst-tooth labels are kept
+  # in severity_labels.csv as severity_label_worst_tooth for reference.
+  classes:
+    - "grade_1_lowest_inflammation"
+    - "grade_2_low_inflammation"
+    - "grade_3_moderate_inflammation"
+    - "grade_4_high_inflammation"
+    - "grade_5_highest_inflammation"
+  epochs: 100
+  batch_size: 16
+  lr: 0.001
+  # "predicted" (correct, default) computes IAR/redness features from the
+  # trained segmentation model's own output, matching real inference
+  # conditions. "ground_truth" is for debugging only.
+  mask_source: "predicted"
+  baseline_epochs: 100   # epochs for EfficientNet-B0/ViT baseline classifiers
+  early_stopping_patience: 15
+
+cross_validation:
+  n_folds: 5   # 5 recommended over 10 for compute budget; set to 10 if you have time/GPU budget
+
+external_validation:
+  root: "sgsq_data_external"   # swap this to your real external/second-source dataset later
+
+device: "cuda"
+seed: 42

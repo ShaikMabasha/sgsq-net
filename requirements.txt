@@ -1,14 +1,13 @@
+# SGSQ-Net requirements (lower bounds; tested versions are listed in the README)
 torch>=2.1.0
-torchvision>=0.16.0        # includes DeepLabV3+, EfficientNet-B0, ViT-B/16 -- no extra baseline deps needed
-ultralytics>=8.1.0        # YOLOv8 for tooth/gingiva ROI detection
-albumentations>=1.4.0     # augmentation for segmentation/classification
+torchvision>=0.16.0
+ultralytics>=8.1.0
+albumentations>=1.4.0
 opencv-python>=4.9.0
 numpy>=1.26.0
 pandas>=2.2.0
-scikit-learn>=1.4.0       # GroupShuffleSplit / StratifiedGroupKFold for patient-level splitting
+scikit-learn>=1.4.0
 matplotlib>=3.8.0
+Pillow>=10.0.0
 tqdm>=4.66.0
-pyyaml>=6.0
-
-# Colab already has torch/torchvision/opencv preinstalled with CUDA --
-# pip install -r requirements.txt will simply confirm/upgrade versions.
+PyYAML>=6.0

@@ -9,13 +9,6 @@ paths:
   severity_dataset: "sgsq_data/severity"
   checkpoints: "checkpoints"
 
-synthetic:
-  num_train_images: 640
-  num_val_images: 160
-  img_size: 512
-  images_per_patient: 4   # simulated patients, for testing patient-level splitting
-  seed: 42
-
 detection:
   model: "yolov8n.pt"
   classes: ["tooth", "gingiva"]
